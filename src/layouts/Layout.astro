@@ -1,4 +1,6 @@
 ---
+import universityOfSouthampton from '../assets/university-of-southampton.svg';
+
 interface Props {
 	title?: string;
 	description?: string;
@@ -60,11 +62,42 @@ const navLinks = [
 			<slot />
 		</main>
 		<footer class="border-t border-gray-200 bg-gray-100 mt-auto">
-			<div class="max-w-[1200px] mx-auto px-6 py-6">
-				<p class="m-0 text-sm text-gray-600">
+			<div class="max-w-[1200px] mx-auto px-6 py-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+				<p class="m-0 text-sm text-gray-600 order-2 sm:order-1">
 					© {new Date().getFullYear()} Ba Lab. Neuroscience Research.
 				</p>
+				<a
+					href="https://www.southampton.ac.uk"
+					target="_blank"
+					rel="noopener noreferrer"
+					class="flex order-1 sm:order-2"
+					aria-label="University of Southampton"
+				>
+					<img
+						src={universityOfSouthampton.src}
+						alt="University of Southampton"
+						width={222}
+						height={48}
+						class="h-10 w-auto"
+					/>
+				</a>
 			</div>
 		</footer>
 	</body>
 </html>
+
+<style is:global>
+	main h1 {
+		font-size: 2rem;
+		font-weight: 700;
+		line-height: 1.25;
+		margin: 0 0 0.5rem 0;
+		color: #1a1a1a;
+		letter-spacing: -0.025em;
+	}
+	@media (min-width: 640px) {
+		main h1 {
+			font-size: 2.25rem;
+		}
+	}
+</style>
