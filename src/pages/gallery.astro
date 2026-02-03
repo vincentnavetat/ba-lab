@@ -1,8 +1,79 @@
 ---
 import Layout from '../layouts/Layout.astro';
+
+const galleryImages = [
+	{ src: 'https://picsum.photos/seed/balab1/800/600', thumb: 'https://picsum.photos/seed/balab1/200/150', alt: 'Gallery image 1' },
+	{ src: 'https://picsum.photos/seed/balab2/800/600', thumb: 'https://picsum.photos/seed/balab2/200/150', alt: 'Gallery image 2' },
+	{ src: 'https://picsum.photos/seed/balab3/800/600', thumb: 'https://picsum.photos/seed/balab3/200/150', alt: 'Gallery image 3' },
+	{ src: 'https://picsum.photos/seed/balab4/800/600', thumb: 'https://picsum.photos/seed/balab4/200/150', alt: 'Gallery image 4' },
+	{ src: 'https://picsum.photos/seed/balab5/800/600', thumb: 'https://picsum.photos/seed/balab5/200/150', alt: 'Gallery image 5' },
+];
 ---
 
 <Layout title="Gallery — Ba Lab" description="Gallery from Ba Lab">
 	<h1>Gallery</h1>
-	<p>Gallery</p>
+
+	<div class="gallery-wrapper mt-6">
+		<!-- Main swiper -->
+		<div class="swiper gallery-main rounded-lg overflow-hidden border border-gray-200">
+			<div class="swiper-wrapper">
+				{galleryImages.map((img) => (
+					<div class="swiper-slide flex items-center justify-center">
+						<img src={img.src} alt={img.alt} class="w-full h-full object-cover aspect-video" loading="lazy" />
+					</div>
+				))}
+			</div>
+			<div class="swiper-button-prev after:text-white"></div>
+			<div class="swiper-button-next after:text-white"></div>
+		</div>
+
+		<!-- Thumbnails swiper -->
+		<div class="swiper gallery-thumbs mt-3">
+			<div class="swiper-wrapper">
+				{galleryImages.map((img) => (
+					<div class="swiper-slide group cursor-pointer rounded overflow-hidden opacity-60 transition duration-200 ease-in-out hover:opacity-100 [&.swiper-slide-thumb-active]:opacity-100">
+						<img src={img.thumb} alt={img.alt} class="w-full h-full object-cover aspect-video transition-transform duration-200 ease-in-out group-hover:scale-105" loading="lazy" />
+					</div>
+				))}
+			</div>
+		</div>
+	</div>
 </Layout>
+
+<script>
+	import Swiper from 'swiper';
+	import { Thumbs, Navigation } from 'swiper/modules';
+	import 'swiper/css';
+	import 'swiper/css/thumbs';
+	import 'swiper/css/navigation';
+
+	function initGallery() {
+		const thumbs = new Swiper('.gallery-thumbs', {
+			spaceBetween: 8,
+			slidesPerView: 4,
+			freeMode: true,
+			watchSlidesProgress: true,
+			breakpoints: {
+				640: { slidesPerView: 5 },
+				1024: { slidesPerView: 6 },
+			},
+		});
+
+		new Swiper('.gallery-main', {
+			modules: [Thumbs, Navigation],
+			spaceBetween: 0,
+			thumbs: { swiper: thumbs },
+			navigation: {
+				nextEl: '.gallery-main .swiper-button-next',
+				prevEl: '.gallery-main .swiper-button-prev',
+			},
+			loop: true,
+		});
+	}
+
+	if (document.readyState === 'loading') {
+		document.addEventListener('DOMContentLoaded', initGallery);
+	} else {
+		initGallery();
+	}
+</script>
