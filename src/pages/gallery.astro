@@ -23,8 +23,8 @@ const galleryImages = [
 					</div>
 				))}
 			</div>
-			<div class="swiper-button-prev after:text-white"></div>
-			<div class="swiper-button-next after:text-white"></div>
+			<div class="swiper-button-prev swiper-button-no-select after:text-white"></div>
+			<div class="swiper-button-next swiper-button-no-select after:text-white"></div>
 		</div>
 
 		<!-- Thumbnails swiper -->
@@ -77,3 +77,11 @@ const galleryImages = [
 		initGallery();
 	}
 </script>
+
+<style>
+	.gallery-main .swiper-button-no-select {
+		-moz-user-select: none;
+		-webkit-user-select: none;
+		user-select: none;
+	}
+</style>
